@@ -15,12 +15,12 @@
 #include "config.h"
 
 /* private variables */
-static char *mem_start_brk;  /* points to first byte of heap */
-static char *mem_brk;        /* points to last byte of heap */
+static char *mem_start_brk;  /* points to first byte of heap */ // 할당된 가상 메모리의 시작점
+static char *mem_brk;        /* points to last byte of heap */ // 할당된 가상 메모리의 마지막점
 static char *mem_max_addr;   /* largest legal heap address */ 
 
 /* 
- * mem_init - initialize the memory system model
+ * mem_init - initialize the memory system model  // 힙에 사용가능한 가상메모리를 더블 워드로 정렬된 바이트의 배열로 모델링
  */
 void mem_init(void)
 {
@@ -54,6 +54,7 @@ void mem_reset_brk()
  * mem_sbrk - simple model of the sbrk function. Extends the heap 
  *    by incr bytes and returns the start address of the new area. In
  *    this model, the heap cannot be shrunk.
+ *    추가적인 힙 메모리를 요청
  */
 void *mem_sbrk(int incr) 
 {
@@ -65,7 +66,7 @@ void *mem_sbrk(int incr)
 	return (void *)-1;
     }
     mem_brk += incr;
-    return (void *)old_brk;
+    return (void *)old_brk; // 시작 주소 반환
 }
 
 /*
